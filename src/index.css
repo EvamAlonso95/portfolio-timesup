@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+#root {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bangers', cursive;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  height: 100vh;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.layout__header {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.layout__btns {
+  display: flex;
+  gap: 16px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: 3px solid #ffd700;
+  border-radius: 15px;
+  background: rgba(255, 215, 0, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Bangers', cursive;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn:hover,
+.btn.active {
+  background: #ffd700;
+  color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* BODY MAIN */
+.layout__main {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Bangers', cursive;
+  overflow-y: auto;
+}
+
+/* Componente CHOOSETEAM */
+
+.main__teams input {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  margin: 8px 0px;
+
+}
+
+.main__teams input:focus-visible {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* Componente NORMAS */
+.main__rules {
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  height: fit-content;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Componente botones categorias */
+
+.btn-categories {
+  font-size: 12px;
+}
+
+
+
+/* FOOTER */
+.footer-custom {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 24px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 48px;
+}
+
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  color: #d1d5db;
+}
