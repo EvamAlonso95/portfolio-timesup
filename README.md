@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# 🎲 Portafolio Interactivo: TIME'S UP en React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto se basa en el popular juego de mesa **TIME'S UP**, desarrollado como parte de mi portafolio. La aplicación permite experimentar las distintas rondas del juego (describir, actuar y decir solo una palabra) con un sistema de puntuación, temporizador y gestión de equipos.
 
-Currently, two official plugins are available:
+## 📋 Resumen del Proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Portafolio-TIME'S-UP** es una aplicación web construida con React que simula el clásico juego de mesa TIME'S UP. El proyecto se encuentra en su **fase inicial de desarrollo**, donde estoy implementando las funcionalidades básicas del juego mientras practico y demuestro mis habilidades en:
 
-## React Compiler
+- Componentes React reutilizables
+- Gestión de estado con hooks (`useState`, `useEffect`, `useReducer`, `useRef`)
+- Validación de datos con **Zod**
+- Persistencia de estado con **LocalStorage**
+- Arquitectura modular de componentes
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🛠️ Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+- **React** - Biblioteca de JavaScript para interfaces de usuario
+- **Zod** - Validación de esquemas de datos
+- **CSS** - Estilos y diseño responsivo
+- **Git/GitHub** - Control de versiones
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚧 Estado Actual
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+El proyecto se encuentra en **fase inicial de desarrollo**. Actualmente estoy trabajando en:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Implementación de la lógica del juego
+- Sistema de puntuación por equipos
+- Temporizador funcional
+- Diseño responsivo y experiencia de usuario
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Instalación
+
+1. Clona el repositorio:
+```bash
+git clone <URL_DEL_REPOSITORIO>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Instala las dependencias:
+```bash
+npm install
 ```
+
+3. Inicia la aplicación:
+```bash
+npm start
+```
+
+## 🎯 Objetivos Futuros
+
+- Completar todas las rondas del juego
+- Implementar modo multijugador completo
+- Agregar sistema de guardado de partidas
+- Mejorar la interfaz de usuario y experiencia de juego
+
+---
+
+*Proyecto en constante evolución como parte de mi crecimiento como desarrolladora frontend.*
