@@ -1,0 +1,96 @@
+export interface Deck {
+  name: string;
+  deck: string[];
+}
+export const decks: Deck[] = [
+  {
+    name: "Pop",
+    deck: [
+      "Leonardo da Vinci",
+      "Coca-Cola",
+      "Harry Potter",
+      "Einstein",
+      "Star Wars",
+      "iPhone",
+      "Facebook",
+      "Google",
+      "Twitter",
+      "Instagram",
+    ],
+  },
+  {
+    name: "Películas",
+    deck: [
+      "Titanic",
+      "Avatar",
+      "Avengers",
+      "Star Wars",
+      "Lord of the Rings",
+      "Harry Potter",
+      "Batman",
+      "Spider-Man",
+      "Toy Story",
+      "The Lion King",
+    ],
+  },
+  {
+    name: "Infantil",
+    deck: [
+      "Cenicienta",
+      "Blancanieves",
+      "Caperucita",
+      "Rapunzel",
+      "Aladdin",
+      "Mickey Mouse",
+      "Bugs Bunny",
+      "Scooby-Doo",
+      "Barney",
+      "Peppa Pig",
+    ],
+  },
+  {
+    name: "Países",
+    deck: [
+      "Francia",
+      "Japón",
+      "Brasil",
+      "Australia",
+      "Canadá",
+      "India",
+      "China",
+      "Alemania",
+      "Italia",
+      "México",
+    ],
+  },
+  {
+    name: "Animales",
+    deck: [
+      "Elefante",
+      "Tigre",
+      "Pingüino",
+      "Koala",
+      "León",
+      "Jirafa",
+      "Delfín",
+      "Panda",
+      "Águila",
+      "Cebra",
+    ],
+  },
+  {
+    name: "Comida",
+    deck: [
+      "Pizza",
+      "Sushi",
+      "Hamburguesa",
+      "Tacos",
+      "Pasta",
+      "Sándwich",
+      "Salchipapa",
+      "Empanada",
+      "Paella",
+      "Chocolate",
+    ],
+  },
+];
