@@ -1,3 +1,4 @@
+import { CardComponent } from "./components/CardComponent";
 import { ChooseTeamComponent } from "./components/ChooseTeamComponent";
 import { FooterComponent } from "./components/FooterComponent";
 import { HeaderComponet } from "./components/HeaderComponent";
@@ -12,15 +13,10 @@ export const TimesUpApp = () => {
 
             <main className="layout__main">
                 {/* Depende de la fase de juego se muestra un subtitulo */}
-                <ChooseTeamComponent />
-                <RulesComponent lenght={89} />
-                {/*
-         //NOMBRES EQUIPOS
-        // INFO
-        //PANEL DEL JUEGO
-        // RESUMEN TURNO
-        // RESUMEN PARTIDA */
-                }
+                {/* <ChooseTeamComponent /> */}
+                {/* <RulesComponent lenght={89} /> */}
+                <CardComponent />
+
             </main>
             {/* // FOOTER */}
             <FooterComponent />
