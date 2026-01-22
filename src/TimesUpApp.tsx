@@ -15,14 +15,9 @@ export const TimesUpApp = () => {
     const gameCards = useGameDeck(selectedCategories);
     const totalGameCards = decks[0].deck.length
 
-
-
-
     return (
         <>
-            {/* // HEADER */}
             <HeaderComponet />
-
 
             <main className="layout__main">
                 {gameStatus == GameStatus.SELECTION && (
@@ -37,11 +32,7 @@ export const TimesUpApp = () => {
                 )}
 
             </main>
-            {/* // FOOTER */}
             <FooterComponent />
-
-
-
         </>
 
     )
