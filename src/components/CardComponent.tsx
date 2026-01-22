@@ -1,6 +1,14 @@
-import { Deck, decks } from "../data/cards.data"
+import { useState } from "react"
+import { GameStatus } from "../data/game.data"
 
-export const CardComponent = () => {
+export const CardComponent = ({ gameCards, GameStatus }: { gameCards: string[], GameStatus: GameStatus }) => {
+    const [currentCardIndex, setCurrentCardIndex] = useState(0)
+
+    const getCurrentCard = () => {
+        if (gameCards.length === 0) return "Selecciona una categoría"
+        return gameCards[currentCardIndex]
+    }
+
     return (
         <>
             <div className="main__card">
@@ -10,14 +18,16 @@ export const CardComponent = () => {
 
                         <div className="card-top-section">
 
-                            <div className="card-content">{decks[Math.floor(Math.random() * decks.length)].deck[Math.floor(Math.random() * decks[Math.floor(Math.random() * decks.length)].deck.length)]}</div>
+                            <div className="card-content">{getCurrentCard()}</div>
+                            <div className="card-instructions">
+                                {GameStatus == 'ROUND_1' && "¡Describe con palabras!"}
+                                {GameStatus == 'ROUND_2' && "¡Solo gestos!"}
+                                {GameStatus == 'ROUND_3' && "¡Una sola palabra!"}
+                            </div>
                             <div className="card-arrow"></div>
 
 
                         </div>
-
-
-
                     </div>
                 </div>
             </div>

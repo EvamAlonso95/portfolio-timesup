@@ -6,6 +6,7 @@ interface DeckCategoryProps {
 }
 
 export const DeckCategoryComponent = ({ onCategoriesChange }: DeckCategoryProps) => {
+
     const [categories, setCategories] = useState<string[]>([])
 
     const handleCheckboxChange = (deckName: string) => {
@@ -15,8 +16,10 @@ export const DeckCategoryComponent = ({ onCategoriesChange }: DeckCategoryProps)
         } else {
             updatedCategories = [...categories, deckName];
         }
+
+        // console.log(updatedCategories);
         setCategories(updatedCategories);
-        onCategoriesChange(updatedCategories);  // Pasar al padre
+        onCategoriesChange(updatedCategories);
     }
 
     return (
