@@ -79,6 +79,7 @@ body,
   border-radius: 6px;
   margin: 8px 0px;
 
+
 }
 
 .main__teams input:focus-visible {
@@ -107,6 +108,174 @@ ul {
   font-size: 12px;
 }
 
+/* COMPONENTE PANEL DEL JUEGO */
+.game-panel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Game Status Bar */
+.game-status-bar {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-item {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.status-item>div {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-label {
+  color: #d1d5db;
+}
+
+.status-value {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+.status-phase {
+  color: #facc15;
+}
+
+.status-turn {
+  color: #60a5fa;
+}
+
+/* Game Buttons */
+.game-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-game {
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.btn-correct {
+  background-color: #16a34a;
+}
+
+.btn-correct:hover {
+  background-color: #15803d;
+}
+
+.btn-incorrect {
+  background-color: #dc2626;
+}
+
+.btn-incorrect:hover {
+  background-color: #b91c1c;
+}
+
+.btn-change-card {
+  background-color: #2563eb;
+}
+
+.btn-change-card:hover {
+  background-color: #1d4ed8;
+}
+
+/* Phase Instructions */
+.phase-instructions {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.phase-title {
+  font-weight: 600;
+  color: #fcd34d;
+  margin-bottom: 0.5rem;
+}
+
+.phase-description {
+  color: #d1d5db;
+}
+
+/* COMPONENTE TIMER */
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timer-display {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  color: #10b981;
+  text-align: center;
+}
+
+.timer-display.timer-warning {
+  color: #ef4444;
+  animation: pulse 1s infinite;
+}
+
+.timer-btn {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s;
+}
+
+.timer-btn:hover {
+  background-color: #2563eb;
+}
+
+/* COMPONENTE SCORE */
+.score-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.score-item {
+  text-align: center;
+}
+
+.score-team {
+  font-size: 0.875rem;
+  color: #d1d5db;
+  margin-bottom: 0.5rem;
+}
+
+.score-points {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #facc15;
+}
+
 /* COMPONENTE CARTA */
 
 .main__card {
@@ -115,6 +284,10 @@ ul {
   height: 250px;
   position: relative;
   perspective: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-card {
@@ -145,13 +318,20 @@ ul {
 }
 
 
+.card-instructions {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
 .card-top-section {
   width: 100%;
-  height: 50%;
+
   background: linear-gradient(45deg, #FFD700, #FFA500);
   position: relative;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 15px;
@@ -169,10 +349,6 @@ ul {
   padding: 15px;
 }
 
-
-
-
-/* Estilos para la versión alternativa de la tarjeta */
 .alternative-card {
   width: 100%;
   height: 100%;
@@ -274,6 +450,8 @@ ul {
 
 
 }
+
+
 
 /* FOOTER */
 .footer-custom {
