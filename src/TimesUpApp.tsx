@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { ChooseTeamComponent } from "./components/ChooseTeamComponent";
 import { FooterComponent } from "./components/FooterComponent";
 import { HeaderComponet } from "./components/HeaderComponent";
 import { RulesComponent } from "./components/RulesComponent";
 import { GameStatus } from "./data/game.data";
 import { GamePanelComponent } from "./components/GamePanelComponent";
-import { useGameDeck } from "./hooks/useGameDeck";
 import { decks } from "./data/cards.data";
+import { getInitialState, timesUpReducer } from "./reducer/timesUpReducer";
 
 
 export const TimesUpApp = () => {
     const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.SELECTION);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    const gameCards = useGameDeck(selectedCategories);
+    const selectedDecks = decks.filter(deck => selectedCategories.includes(deck.name));
+    const gameCards = selectedDecks.flatMap(deck => deck.deck);
+    console.log('Filtrado', gameCards);
+    const [state, dispatch] = useReducer(timesUpReducer, getInitialState(gameCards))
+    console.log(state)
     const totalGameCards = decks[0].deck.length
 
     return (
@@ -28,7 +32,9 @@ export const TimesUpApp = () => {
                 )}
                 {gameStatus == GameStatus.ROUND_1 && (
                     // Componente de juego
-                    <GamePanelComponent gameCards={gameCards} GameStatus={GameStatus.ROUND_1} />
+                    <GamePanelComponent key={gameCards.join("-")} gameCards={gameCards}
+                        currentCard={gameCards[0]}
+                        GameStatus={GameStatus.ROUND_1} />
                 )}
 
             </main>

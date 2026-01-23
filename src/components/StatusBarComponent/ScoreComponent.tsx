@@ -3,7 +3,7 @@ import { getInitialState, timesUpReducer } from "../../reducer/timesUpReducer"
 
 export const ScoreComponent = () => {
 
-    const [state, dispatch] = useReducer(timesUpReducer, getInitialState())
+
 
     const { teams } = state
     return (

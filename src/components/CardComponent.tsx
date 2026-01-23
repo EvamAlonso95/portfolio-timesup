@@ -1,13 +1,12 @@
-import { useState } from "react"
 import { GameStatus } from "../data/game.data"
 
-export const CardComponent = ({ gameCards, GameStatus }: { gameCards: string[], GameStatus: GameStatus }) => {
-    const [currentCardIndex, setCurrentCardIndex] = useState(0)
+export const CardComponent = ({ currentCard, GameStatus }: { currentCard: string, GameStatus: GameStatus }) => {
+    // const [currentCardIndex, setCurrentCardIndex] = useState(0)
 
-    const getCurrentCard = () => {
-        if (gameCards.length === 0) return "Selecciona una categoría"
-        return gameCards[currentCardIndex]
-    }
+    // const getCurrentCard = () => {
+    //     if (gameCards.length === 0) return "Selecciona una categoría"
+    //     return gameCards[currentCardIndex]
+    // }
 
     return (
         <>
@@ -18,7 +17,7 @@ export const CardComponent = ({ gameCards, GameStatus }: { gameCards: string[], 
 
                         <div className="card-top-section">
 
-                            <div className="card-content">{getCurrentCard()}</div>
+                            <div className="card-content">{currentCard}</div>
                             <div className="card-instructions">
                                 {GameStatus == 'ROUND_1' && "¡Describe con palabras!"}
                                 {GameStatus == 'ROUND_2' && "¡Solo gestos!"}
