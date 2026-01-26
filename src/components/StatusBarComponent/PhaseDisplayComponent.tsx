@@ -1,5 +1,5 @@
 import { GameStatus } from "../../data/game.data"
-import type { TimesUpState } from "../../reducer/timesUpReducer"
+
 import { TeamTurnComponent } from "./TeamTurnComponent"
 
 

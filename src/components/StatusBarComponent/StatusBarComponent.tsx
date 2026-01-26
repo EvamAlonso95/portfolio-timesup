@@ -1,17 +1,20 @@
 import { GameStatus } from '../../data/game.data'
-import { TimerComponent } from './TimerComponent'
+import { useTimer } from '../../hooks/useTimer'
 import { PhaseDisplayComponent } from './PhaseDisplayComponent'
-import type { TimesUpState } from '../../reducer/timesUpReducer'
+import { TimerComponent } from './TimerComponent'
+
 // import { ScoreComponent } from './ScoreComponent'
 
-const initialSeconds = 60
 
 
-export const StatusBarComponent = ({ GameStatus, currentTeam }: { GameStatus: GameStatus, currentTeam: string }) => {
+
+export const StatusBarComponent = ({ GameStatus }: { GameStatus: GameStatus }) => {
+
+    const { team, timeLeft } = useTimer({ gameStatus: GameStatus });
     return (
         <div className="status-bar-content">
-            <PhaseDisplayComponent gameStatus={GameStatus} currentTeam={currentTeam} />
-            <TimerComponent initialSeconds={initialSeconds} />
+            <PhaseDisplayComponent gameStatus={GameStatus} currentTeam={team} />
+            <TimerComponent initialSeconds={timeLeft} />
             {/* <ScoreComponent /> */}
         </div>
 

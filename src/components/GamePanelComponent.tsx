@@ -7,12 +7,15 @@ import { getInitialState, timesUpReducer } from '../reducer/timesUpReducer'
 
 
 
+
 export const GamePanelComponent = ({ gameCards, GameStatus }: { gameCards: string[], currentCard: string, GameStatus: GameStatus }) => {
 
     const [state, dispatch] = useReducer(timesUpReducer, getInitialState(gameCards))
     console.log('Jugamos con:', state.currentDeck)
     console.log('Carta adivinar:', state.currentCard)
     console.log('Estado juego', GameStatus)
+
+
 
 
     return (
@@ -23,7 +26,7 @@ export const GamePanelComponent = ({ gameCards, GameStatus }: { gameCards: strin
                 {/* Game Status Bar */}
                 {/* FASE y Equipo */}
                 <div className="game-status-bar">
-                    <StatusBarComponent GameStatus={GameStatus} currentTeam="EQUIPO 1" />
+                    <StatusBarComponent GameStatus={GameStatus} />
                 </div>
 
                 {/* Game Card */}
