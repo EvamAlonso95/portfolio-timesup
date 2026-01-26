@@ -1,4 +1,4 @@
-import { getTeams } from "../utils/storage";
+import { getTeams, saveTeams } from "../utils/storage";
 
 export interface Team {
   name: string;
@@ -14,13 +14,10 @@ export interface TimesUpState {
 }
 
 export const getInitialState = (currentDeck: string[]): TimesUpState => {
-  const teams = getTeams().map((name) => ({
-    name,
-    points: 0,
-  }));
+  const teams = getTeams();
   return {
     teams: teams,
-    currentTeam: teams[0]?.name || "",
+    currentTeam: teams[0].name,
     currentCard: currentDeck[0],
     currentDeck: currentDeck,
     round: 1,
@@ -37,19 +34,29 @@ export const timesUpReducer = (
 ): TimesUpState => {
   switch (action.type) {
     case "CORRECT_GUESS": {
+      //Si no hay equipo
       if (!state.currentTeam) {
-        console.log("Vacio");
         return state;
       }
-      console.log("No vacio");
+
+      //Comprobación de  nº cartas
+      if (state.currentDeck.length == 0) {
+        console.log("Se acabó el mazo");
+        //Cambiar de ronda
+      }
+
+      const upadtedTeams = state.teams.map((team) =>
+        team.name == state.currentTeam
+          ? { ...team, points: team.points + 1 }
+          : team,
+      );
+
+      saveTeams(upadtedTeams);
+
       const updateDeck = state.currentDeck.slice(1);
       return {
         ...state,
-        teams: state.teams.map((team) =>
-          team.name == state.currentTeam
-            ? { ...team, points: team.points + 1 }
-            : team,
-        ),
+        teams: upadtedTeams,
         currentDeck: updateDeck,
         currentCard: updateDeck[0],
       };

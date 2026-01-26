@@ -1,8 +1,9 @@
 import { GameStatus } from "../../data/game.data"
+import type { TimesUpState } from "../../reducer/timesUpReducer"
 import { TeamTurnComponent } from "./TeamTurnComponent"
 
 
-export const PhaseDisplayComponent = ({ gameStatus }: { gameStatus: GameStatus }) => {
+export const PhaseDisplayComponent = ({ gameStatus, currentTeam }: { gameStatus: GameStatus, currentTeam: string }) => {
 
     return (
         <>
@@ -13,7 +14,7 @@ export const PhaseDisplayComponent = ({ gameStatus }: { gameStatus: GameStatus }
                 </div>
 
                 {/* Componente turno */}
-                <TeamTurnComponent />
+                <TeamTurnComponent currentTeam={currentTeam} />
             </div>
         </>
     )

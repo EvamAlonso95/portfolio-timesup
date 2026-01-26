@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import { ChooseTeamComponent } from "./components/ChooseTeamComponent";
+import { ChooseDeckComponent } from "./components/ChooseDeckComponent";
 import { FooterComponent } from "./components/FooterComponent";
 import { HeaderComponet } from "./components/HeaderComponent";
 import { RulesComponent } from "./components/RulesComponent";
@@ -16,7 +16,8 @@ export const TimesUpApp = () => {
     const gameCards = selectedDecks.flatMap(deck => deck.deck);
     console.log('Filtrado', gameCards);
     const [state, dispatch] = useReducer(timesUpReducer, getInitialState(gameCards))
-    console.log(state)
+
+
     const totalGameCards = decks[0].deck.length
 
     return (
@@ -26,7 +27,7 @@ export const TimesUpApp = () => {
             <main className="layout__main">
                 {gameStatus == GameStatus.SELECTION && (
                     <>
-                        <ChooseTeamComponent gameStatus={gameStatus} setGameStatus={setGameStatus} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+                        <ChooseDeckComponent gameStatus={gameStatus} setGameStatus={setGameStatus} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
                         <RulesComponent lenght={totalGameCards} />
                     </>
                 )}

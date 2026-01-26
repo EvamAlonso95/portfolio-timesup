@@ -73,7 +73,7 @@ body,
 
 /* Componente CHOOSETEAM */
 
-.main__teams input {
+.main__categories input {
   padding: 8px;
   border: none;
   border-radius: 6px;
@@ -82,7 +82,7 @@ body,
 
 }
 
-.main__teams input:focus-visible {
+.main__categories input:focus-visible {
   outline: 2px solid #ffd700;
   outline-offset: 2px;
 }

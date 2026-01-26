@@ -1,13 +1,14 @@
-import { getTeams } from '../../utils/storage'
+import type { TimesUpState } from "../../reducer/timesUpReducer"
 
-const teams = getTeams()
 
-export const TeamTurnComponent = () => {
+
+
+export const TeamTurnComponent = ({ currentTeam }: { currentTeam: string }) => {
     return (
         <>
             <div>
                 <span className="status-label">Turno:</span>
-                <span className="status-value status-turn">{teams[0]}</span>
+                <span className="status-value status-turn">{currentTeam}</span>
             </div>
         </>
     )

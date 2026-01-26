@@ -14,6 +14,7 @@ export const GamePanelComponent = ({ gameCards, GameStatus }: { gameCards: strin
     console.log('Carta adivinar:', state.currentCard)
     console.log('Estado juego', GameStatus)
 
+
     return (
         <>
             {/* Game Tab */}
@@ -22,7 +23,7 @@ export const GamePanelComponent = ({ gameCards, GameStatus }: { gameCards: strin
                 {/* Game Status Bar */}
                 {/* FASE y Equipo */}
                 <div className="game-status-bar">
-                    <StatusBarComponent GameStatus={GameStatus} />
+                    <StatusBarComponent GameStatus={GameStatus} currentTeam="EQUIPO 1" />
                 </div>
 
                 {/* Game Card */}
