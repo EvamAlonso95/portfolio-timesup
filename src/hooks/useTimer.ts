@@ -4,25 +4,34 @@ import { GameStatus } from "../data/game.data";
 
 const initialSeconds = 30;
 
-export const useTimer = ({ 
-  gameStatus // Cambiado a minúscula
-}: { 
-  gameStatus: GameStatus 
+export const useTimer = ({
+  gameStatus,
+  onTimeout,
+}: {
+  gameStatus: GameStatus;
+  onTimeout?: () => void;
 }) => {
   const [team, setTeam] = useState<TeamNames>(TeamNames.EQUIPO_1);
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
 
   useEffect(() => {
     let interval: number | null = null;
-    
+
     // Solo corre el timer si estamos en una ronda activa
-    if (gameStatus === GameStatus.ROUND_1 || gameStatus === GameStatus.ROUND_2 || gameStatus === GameStatus.ROUND_3) {
+    if (
+      gameStatus === GameStatus.ROUND_1 ||
+      gameStatus === GameStatus.ROUND_2 ||
+      gameStatus === GameStatus.ROUND_3
+    ) {
       interval = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
+            if (onTimeout) onTimeout();
             // Cambio de equipo
-            setTeam(prevTeam => 
-              prevTeam === TeamNames.EQUIPO_1 ? TeamNames.EQUIPO_2 : TeamNames.EQUIPO_1
+            setTeam((prevTeam) =>
+              prevTeam === TeamNames.EQUIPO_1
+                ? TeamNames.EQUIPO_2
+                : TeamNames.EQUIPO_1,
             );
             return initialSeconds; // Reinicia el timer
           }
@@ -34,7 +43,7 @@ export const useTimer = ({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [gameStatus]); // Dependencia correcta
+  }, [gameStatus, onTimeout]); // Dependencia correcta
 
   const resetTimer = useCallback(() => {
     setTimeLeft(initialSeconds);

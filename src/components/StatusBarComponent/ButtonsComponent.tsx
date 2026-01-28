@@ -1,8 +1,14 @@
-import React, { useReducer } from "react"
-import { getInitialState, timesUpReducer } from "../../reducer/timesUpReducer"
+import type { TimesUpAction } from "../../reducer/timesUpReducer"
 
+export const ButtonsComponent = ({
+    gameCards,
+    dispatch
 
-export const ButtonsComponent = ({ gameCards, dispatch }: { gameCards: string[], dispatch: React.Dispatch<any> }) => {
+}: {
+    gameCards: string[],
+    dispatch: React.Dispatch<TimesUpAction>,
+
+}) => {
 
     return (
         <div className="game-buttons">

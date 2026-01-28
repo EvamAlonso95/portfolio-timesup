@@ -1,54 +1,53 @@
-import { useReducer } from 'react'
 import { GameStatus } from '../data/game.data'
 import { CardComponent } from './CardComponent'
 import { ButtonsComponent } from './StatusBarComponent/ButtonsComponent'
 import { StatusBarComponent } from './StatusBarComponent/StatusBarComponent'
-import { getInitialState, timesUpReducer } from '../reducer/timesUpReducer'
+import { RoundSummaryComponent } from './RoundSummaryComponent'
+import type { TimesUpAction, TimesUpState } from '../reducer/timesUpReducer'
 
 
-
-
-export const GamePanelComponent = ({ gameCards, GameStatus }: { gameCards: string[], currentCard: string, GameStatus: GameStatus }) => {
-
-    const [state, dispatch] = useReducer(timesUpReducer, getInitialState(gameCards))
-    console.log('Jugamos con:', state.currentDeck)
-    console.log('Carta adivinar:', state.currentCard)
-    console.log('Estado juego', GameStatus)
-
+export const GamePanelComponent = ({
+    gameCards,
+    state,//!
+    dispatch,
+    gameStatus,
+    setGameStatus,
+    currentCard, //!
+}: {
+    gameCards: string[];
+    state: TimesUpState;
+    dispatch: React.Dispatch<TimesUpAction>;
+    gameStatus: GameStatus;
+    setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>
+    currentCard: string;
+}) => {
+    console.log('Panel de juego:', state);
+    const handleTimeout = () => {
+        dispatch({ type: "END_ROUND" });
+        setGameStatus(GameStatus.END_ROUND);
+    };
 
 
 
     return (
-        <>
-            {/* Game Tab */}
-
-            <div className="game-panel-container">
-                {/* Game Status Bar */}
-                {/* FASE y Equipo */}
-                <div className="game-status-bar">
-                    <StatusBarComponent GameStatus={GameStatus} />
-                </div>
-
-                {/* Game Card */}
-
-                <CardComponent currentCard={state.currentCard} GameStatus={GameStatus} />
-
-                {/* COMPONENTE BOTONES */}
-
-                <ButtonsComponent dispatch={dispatch} gameCards={state.currentDeck} />
-
-
-                {/* Phase Instructions */}
-                <div className="phase-instructions">
-                    {/* <h4 className="phase-title">Fase {GameStatus.ROUND_1}</h4> */}
-                    <p className="phase-description">
-                        {GameStatus == 'ROUND_1' && "Describe la carta sin decir su nombre ni palabras derivadas de ella"}
-                        {GameStatus == 'ROUND_2' && "Gestos sin hablar"}
-                        {GameStatus == 'ROUND_3' && "Una sola palabra por intento"}
-                    </p>
-                </div>
+        <div className="game-panel-container">
+            <div className="game-status-bar">
+                <StatusBarComponent gameStatus={gameStatus} setGameStatus={setGameStatus} onTimeout={handleTimeout} />
             </div>
-
-        </>
+            {gameStatus === GameStatus.ROUND_1 && (
+                <CardComponent currentCard={currentCard} GameStatus={gameStatus} />
+            )}
+            {gameStatus === GameStatus.END_ROUND && (
+                <RoundSummaryComponent correctCards={state.correctCards} failedCards={state.failedCards} />
+            )}
+            <ButtonsComponent dispatch={dispatch} gameCards={gameCards} />
+            <div className="phase-instructions">
+                <p className="phase-description">
+                    {GameStatus.ROUND_1 && "Describe la carta sin decir su nombre ni palabras derivadas de ella"}
+                    {GameStatus.ROUND_2 && "Gestos sin hablar"}
+                    {GameStatus.ROUND_3 && "Una sola palabra por intento"}
+                </p>
+            </div>
+        </div>
     )
 }

@@ -3,22 +3,25 @@ import { useTimer } from '../../hooks/useTimer'
 import { PhaseDisplayComponent } from './PhaseDisplayComponent'
 import { TimerComponent } from './TimerComponent'
 
-// import { ScoreComponent } from './ScoreComponent'
+export const StatusBarComponent = ({
+    gameStatus,
+    setGameStatus,
+    onTimeout,
+}: {
+    gameStatus: GameStatus;
+    setGameStatus: (status: GameStatus) => void;
+    onTimeout: () => void;
+}) => {
+    const { timeLeft, team } = useTimer({
+        gameStatus, // ✅ valor actual
+        onTimeout,
+    });
 
-
-
-
-export const StatusBarComponent = ({ GameStatus }: { GameStatus: GameStatus }) => {
-
-    const { team, timeLeft } = useTimer({ gameStatus: GameStatus });
     return (
         <div className="status-bar-content">
-            <PhaseDisplayComponent gameStatus={GameStatus} currentTeam={team} />
-            <TimerComponent initialSeconds={timeLeft} />
+            <PhaseDisplayComponent gameStatus={gameStatus} currentTeam={team} />
+            <TimerComponent seconds={timeLeft} />
             {/* <ScoreComponent /> */}
         </div>
-
-    )
-}
-
-
+    );
+};

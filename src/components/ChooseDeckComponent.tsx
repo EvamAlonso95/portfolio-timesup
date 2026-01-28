@@ -3,7 +3,7 @@ import { GameStatus } from "../data/game.data";
 
 import Swal from "sweetalert2";
 import { decks } from "../data/cards.data";
-import { saveTeams } from "../utils/storage";
+// import { saveTeams } from "../utils/storage";
 
 interface ChooseDeckComponentProps {
     gameStatus: GameStatus;
@@ -11,6 +11,7 @@ interface ChooseDeckComponentProps {
     selectedCategories: string[];
     setSelectedCategories: (categories: string[]) => void;
 }
+
 
 export const ChooseDeckComponent = ({ setGameStatus, selectedCategories, setSelectedCategories }: ChooseDeckComponentProps) => {
 
@@ -26,12 +27,11 @@ export const ChooseDeckComponent = ({ setGameStatus, selectedCategories, setSele
             return;
         }
 
-        // Solo inicializa si no existen
-
-        saveTeams([
-            { name: "Equipo 1", points: 0 },
-            { name: "Equipo 2", points: 0 }
-        ]);
+        //! Borrar si no hace falta
+        // saveTeams([
+        //     { name: "Equipo 1", points: 0 },
+        //     { name: "Equipo 2", points: 0 }
+        // ]);
 
         setGameStatus(GameStatus.ROUND_1);
     }

@@ -1,5 +1,6 @@
 export const GameStatus = {
   SELECTION: "SELECTION",
+  END_ROUND: "END_ROUND",
   ROUND_1: "ROUND_1",
   ROUND_2: "ROUND_2",
   ROUND_3: "ROUND_3",

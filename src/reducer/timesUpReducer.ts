@@ -10,23 +10,37 @@ export interface TimesUpState {
   currentTeam: string;
   currentCard: string;
   currentDeck: string[];
+  correctCards: string[];
+  failedCards: string[];
   round: number;
 }
 
 export const getInitialState = (currentDeck: string[]): TimesUpState => {
   const teams = getTeams();
+  if (teams.length === 0) {
+    // Solo inicializa si no existen
+
+    saveTeams([
+      { name: "Equipo 1", points: 0 },
+      { name: "Equipo 2", points: 0 },
+    ]);
+  }
+
   return {
     teams: teams,
     currentTeam: teams[0].name,
     currentCard: currentDeck[0],
     currentDeck: currentDeck,
+    correctCards: [],
+    failedCards: [],
     round: 1,
   };
 };
 
 export type TimesUpAction =
   | { type: "CORRECT_GUESS"; payload: string[] }
-  | { type: "INCORRECT_GUESS"; payload: string[] };
+  | { type: "INCORRECT_GUESS"; payload: string[] }
+  | { type: "END_ROUND" };
 
 export const timesUpReducer = (
   state: TimesUpState,
@@ -45,6 +59,8 @@ export const timesUpReducer = (
         //Cambiar de ronda
       }
 
+      const correctCards = [...state.correctCards, state.currentCard];
+
       const upadtedTeams = state.teams.map((team) =>
         team.name == state.currentTeam
           ? { ...team, points: team.points + 1 }
@@ -59,11 +75,14 @@ export const timesUpReducer = (
         teams: upadtedTeams,
         currentDeck: updateDeck,
         currentCard: updateDeck[0],
+        correctCards: correctCards,
       };
     }
 
     case "INCORRECT_GUESS": {
       if (state.currentDeck.length === 0) return state;
+
+      const failedCards = [...state.failedCards, state.currentCard];
       const updateDeck = [...state.currentDeck];
       const first = updateDeck.shift();
       if (first !== undefined) {
@@ -73,8 +92,20 @@ export const timesUpReducer = (
         ...state,
         currentDeck: updateDeck,
         currentCard: updateDeck[0] || "",
+        failedCards: failedCards,
       };
     }
+    case "END_ROUND":
+      return {
+        ...state,
+        teams: state.teams,
+        currentTeam: state.teams[1].name,
+        currentCard: state.currentDeck[0],
+        currentDeck: state.currentDeck,
+        correctCards: state.correctCards,
+        failedCards: state.failedCards,
+        round: 2,
+      };
 
     default:
       return state;

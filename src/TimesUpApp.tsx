@@ -14,14 +14,15 @@ export const TimesUpApp = () => {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const selectedDecks = decks.filter(deck => selectedCategories.includes(deck.name));
     const gameCards = selectedDecks.flatMap(deck => deck.deck);
-    console.log('Filtrado', gameCards);
-    const [state, dispatch] = useReducer(timesUpReducer, getInitialState(gameCards))
+    const [state, dispatch] = useReducer(timesUpReducer, gameCards, getInitialState,)
+
+    const totalGameCards = decks[0].deck.length;
 
 
-    const totalGameCards = decks[0].deck.length
 
     return (
         <>
+
             <HeaderComponet />
 
             <main className="layout__main">
@@ -32,11 +33,38 @@ export const TimesUpApp = () => {
                     </>
                 )}
                 {gameStatus == GameStatus.ROUND_1 && (
-                    // Componente de juego
-                    <GamePanelComponent key={gameCards.join("-")} gameCards={gameCards}
-                        currentCard={gameCards[0]}
-                        GameStatus={GameStatus.ROUND_1} />
+                    <GamePanelComponent
+                        gameCards={gameCards}
+                        currentCard={state.currentCard}
+                        gameStatus={gameStatus}
+                        setGameStatus={setGameStatus}
+                        state={state}
+                        dispatch={dispatch}
+                    />
                 )}
+
+                {gameStatus == GameStatus.END_ROUND && (
+                    <GamePanelComponent
+                        gameCards={gameCards}
+                        currentCard={state.currentCard}
+                        state={state}
+                        dispatch={dispatch}
+                        gameStatus={gameStatus}
+                        setGameStatus={setGameStatus}
+                    />
+                )}
+
+                {/* {gameStatus == GameStatus.END_ROUND && (
+                    <GamePanelComponent
+                        key={gameCards.join("-")}
+                        gameCards={gameCards}
+                        currentCard={state.currentCard}
+                        state={state}
+                        dispatch={dispatch}
+                        gameStatus={gameStatus}
+                        setGameStatus={setGameStatus}
+                    />
+                )} */}
 
             </main>
             <FooterComponent />

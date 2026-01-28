@@ -1,6 +1,6 @@
 import { GameStatus } from "../data/game.data"
 
-export const CardComponent = ({ currentCard, GameStatus }: { currentCard: string, GameStatus: GameStatus }) => {
+export const CardComponent = ({ currentCard }: { currentCard: string, GameStatus: GameStatus }) => {
     // const [currentCardIndex, setCurrentCardIndex] = useState(0)
 
     // const getCurrentCard = () => {
@@ -19,9 +19,9 @@ export const CardComponent = ({ currentCard, GameStatus }: { currentCard: string
 
                             <div className="card-content">{currentCard}</div>
                             <div className="card-instructions">
-                                {GameStatus == 'ROUND_1' && "¡Describe con palabras!"}
-                                {GameStatus == 'ROUND_2' && "¡Solo gestos!"}
-                                {GameStatus == 'ROUND_3' && "¡Una sola palabra!"}
+                                {GameStatus.ROUND_1 && "¡Describe con palabras!"}
+                                {GameStatus.ROUND_2 && "¡Solo gestos!"}
+                                {GameStatus.ROUND_3 && "¡Una sola palabra!"}
                             </div>
                             <div className="card-arrow"></div>
 
