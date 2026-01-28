@@ -40,7 +40,8 @@ export const getInitialState = (currentDeck: string[]): TimesUpState => {
 export type TimesUpAction =
   | { type: "CORRECT_GUESS"; payload: string[] }
   | { type: "INCORRECT_GUESS"; payload: string[] }
-  | { type: "END_ROUND" };
+  | { type: "END_ROUND" }
+  | { type: "RESET_GAME"; payload: string[] };
 
 export const timesUpReducer = (
   state: TimesUpState,
@@ -106,6 +107,9 @@ export const timesUpReducer = (
         failedCards: state.failedCards,
         round: 2,
       };
+
+    case "RESET_GAME":
+      return getInitialState(action.payload);
 
     default:
       return state;

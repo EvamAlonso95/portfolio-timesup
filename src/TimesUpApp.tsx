@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 import { ChooseDeckComponent } from "./components/ChooseDeckComponent";
 import { FooterComponent } from "./components/FooterComponent";
 import { HeaderComponet } from "./components/HeaderComponent";
@@ -14,7 +14,14 @@ export const TimesUpApp = () => {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const selectedDecks = decks.filter(deck => selectedCategories.includes(deck.name));
     const gameCards = selectedDecks.flatMap(deck => deck.deck);
-    const [state, dispatch] = useReducer(timesUpReducer, gameCards, getInitialState,)
+    const [state, dispatch] = useReducer(timesUpReducer, [], getInitialState)
+
+    // Reinicializar el reducer cuando se inicia el juego
+    useEffect(() => {
+        if (gameStatus === GameStatus.ROUND_1 && gameCards.length > 0) {
+            dispatch({ type: "RESET_GAME", payload: gameCards });
+        }
+    }, [gameStatus, gameCards.length]);
 
     const totalGameCards = decks[0].deck.length;
 
