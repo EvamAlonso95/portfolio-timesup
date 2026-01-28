@@ -35,19 +35,31 @@ export const GamePanelComponent = ({
                 <StatusBarComponent gameStatus={gameStatus} setGameStatus={setGameStatus} onTimeout={handleTimeout} />
             </div>
             {gameStatus === GameStatus.ROUND_1 && (
-                <CardComponent currentCard={currentCard} GameStatus={gameStatus} />
+                <>
+                    <CardComponent currentCard={currentCard} GameStatus={gameStatus} />
+                    <ButtonsComponent dispatch={dispatch} gameCards={gameCards} />
+
+                </>
             )}
             {gameStatus === GameStatus.END_ROUND && (
-                <RoundSummaryComponent correctCards={state.correctCards} failedCards={state.failedCards} />
+                <RoundSummaryComponent correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} />
             )}
-            <ButtonsComponent dispatch={dispatch} gameCards={gameCards} />
-            <div className="phase-instructions">
-                <p className="phase-description">
-                    {GameStatus.ROUND_1 && "Describe la carta sin decir su nombre ni palabras derivadas de ella"}
-                    {GameStatus.ROUND_2 && "Gestos sin hablar"}
-                    {GameStatus.ROUND_3 && "Una sola palabra por intento"}
-                </p>
-            </div>
+
+
+            {
+                gameStatus != GameStatus.END_ROUND && (
+                    <div className="phase-instructions">
+                        <p className="phase-description">
+                            {gameStatus === GameStatus.ROUND_1 && "Describe la carta sin decir su nombre ni palabras derivadas de ella"}
+                            {gameStatus === GameStatus.ROUND_2 && "Gestos sin hablar"}
+                            {gameStatus === GameStatus.ROUND_3 && "Una sola palabra por intento"}
+                        </p>
+                    </div>
+
+                )
+            }
+
+
         </div>
     )
 }

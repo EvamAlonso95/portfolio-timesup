@@ -40,6 +40,7 @@ export const getInitialState = (currentDeck: string[]): TimesUpState => {
 export type TimesUpAction =
   | { type: "CORRECT_GUESS"; payload: string[] }
   | { type: "INCORRECT_GUESS"; payload: string[] }
+  | { type: "TOGGLE_CARD"; payload: string }
   | { type: "END_ROUND" }
   | { type: "RESET_GAME"; payload: string[] };
 
@@ -108,6 +109,41 @@ export const timesUpReducer = (
         round: 2,
       };
 
+    case "TOGGLE_CARD": {
+      const card = action.payload;
+      let newCorrectCards = [...state.correctCards];
+      let newFailedCards = [...state.failedCards];
+      let newTeams = [...state.teams];
+
+      if (state.correctCards.includes(card)) {
+        // Mover de correctCards a failedCards y restar puntos
+        newCorrectCards = state.correctCards.filter((c) => c !== card);
+        newFailedCards = [...state.failedCards, card];
+        newTeams = state.teams.map((team) =>
+          team.name === state.currentTeam
+            ? { ...team, points: team.points - 1 }
+            : team,
+        );
+        saveTeams(newTeams);
+      } else if (state.failedCards.includes(card)) {
+        // Mover de failedCards a correctCards y sumar puntos
+        newFailedCards = state.failedCards.filter((c) => c !== card);
+        newCorrectCards = [...state.correctCards, card];
+        newTeams = state.teams.map((team) =>
+          team.name === state.currentTeam
+            ? { ...team, points: team.points + 1 }
+            : team,
+        );
+        saveTeams(newTeams);
+      }
+
+      return {
+        ...state,
+        correctCards: newCorrectCards,
+        failedCards: newFailedCards,
+        teams: newTeams,
+      };
+    }
     case "RESET_GAME":
       return getInitialState(action.payload);
 
