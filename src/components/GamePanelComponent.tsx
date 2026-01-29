@@ -21,7 +21,6 @@ export const GamePanelComponent = ({
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>
     currentCard: string;
 }) => {
-    console.log('Panel de juego:', state);
     const handleTimeout = () => {
         dispatch({ type: "END_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
@@ -32,17 +31,17 @@ export const GamePanelComponent = ({
     return (
         <div className="game-panel-container">
             <div className="game-status-bar">
-                <StatusBarComponent gameStatus={gameStatus} setGameStatus={setGameStatus} onTimeout={handleTimeout} />
+                <StatusBarComponent gameStatus={gameStatus} setGameStatus={setGameStatus} onTimeout={handleTimeout} state={state} />
             </div>
             {gameStatus === GameStatus.ROUND_1 && (
                 <>
-                    <CardComponent currentCard={currentCard} GameStatus={gameStatus} />
+                    <CardComponent currentCard={currentCard} gameStatus={gameStatus} />
                     <ButtonsComponent dispatch={dispatch} gameCards={gameCards} />
 
                 </>
             )}
             {gameStatus === GameStatus.END_ROUND && (
-                <RoundSummaryComponent correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} />
+                <RoundSummaryComponent correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} />
             )}
 
 

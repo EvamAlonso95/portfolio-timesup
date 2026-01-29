@@ -1,3 +1,4 @@
+import { TeamNames } from "../data/teamNames.data";
 import { getTeams, saveTeams } from "../utils/storage";
 
 export interface Team {
@@ -9,10 +10,10 @@ export interface TimesUpState {
   teams: Team[];
   currentTeam: string;
   currentCard: string;
-  currentDeck: string[];
-  correctCards: string[];
-  failedCards: string[];
-  round: number;
+  currentDeck: Set<string>;
+  correctCards: Set<string>;
+  failedCards: Set<string>;
+  // round: number;
 }
 
 export const getInitialState = (currentDeck: string[]): TimesUpState => {
@@ -30,10 +31,10 @@ export const getInitialState = (currentDeck: string[]): TimesUpState => {
     teams: teams,
     currentTeam: teams[0].name,
     currentCard: currentDeck[0],
-    currentDeck: currentDeck,
-    correctCards: [],
-    failedCards: [],
-    round: 1,
+    currentDeck: new Set(currentDeck),
+    correctCards: new Set<string>(),
+    failedCards: new Set<string>(),
+    // round: 1,
   };
 };
 
@@ -41,6 +42,7 @@ export type TimesUpAction =
   | { type: "CORRECT_GUESS"; payload: string[] }
   | { type: "INCORRECT_GUESS"; payload: string[] }
   | { type: "TOGGLE_CARD"; payload: string }
+  | { type: "NEXT_ROUND" }
   | { type: "END_ROUND" }
   | { type: "RESET_GAME"; payload: string[] };
 
@@ -56,12 +58,13 @@ export const timesUpReducer = (
       }
 
       //Comprobación de  nº cartas
-      if (state.currentDeck.length == 0) {
+      if (state.currentDeck.size === 0) {
         console.log("Se acabó el mazo");
         //Cambiar de ronda
       }
 
-      const correctCards = [...state.correctCards, state.currentCard];
+      const correctCards = new Set(state.correctCards);
+      correctCards.add(state.currentCard);
 
       const upadtedTeams = state.teams.map((team) =>
         team.name == state.currentTeam
@@ -71,20 +74,23 @@ export const timesUpReducer = (
 
       saveTeams(upadtedTeams);
 
-      const updateDeck = state.currentDeck.slice(1);
+      const deckArray = Array.from(state.currentDeck);
+      deckArray.shift();
+      const updateDeck = new Set(deckArray);
       return {
         ...state,
         teams: upadtedTeams,
         currentDeck: updateDeck,
-        currentCard: updateDeck[0],
+        currentCard: deckArray[0] || "",
         correctCards: correctCards,
       };
     }
 
     case "INCORRECT_GUESS": {
-      if (state.currentDeck.length === 0) return state;
+      if (state.currentDeck.size === 0) return state;
 
-      const failedCards = [...state.failedCards, state.currentCard];
+      const failedCards = new Set(state.failedCards);
+      failedCards.add(state.currentCard);
       const updateDeck = [...state.currentDeck];
       const first = updateDeck.shift();
       if (first !== undefined) {
@@ -92,49 +98,72 @@ export const timesUpReducer = (
       }
       return {
         ...state,
-        currentDeck: updateDeck,
+        currentDeck: new Set(updateDeck),
         currentCard: updateDeck[0] || "",
         failedCards: failedCards,
+      };
+    }
+    case "NEXT_ROUND": {
+      const getUpdatedTeam = (currentTeam: string): TeamNames => {
+        return currentTeam === TeamNames.EQUIPO_1
+          ? TeamNames.EQUIPO_2
+          : TeamNames.EQUIPO_1;
+      };
+
+      // Uso:
+      const updatedTeam = getUpdatedTeam(state.currentTeam);
+      return {
+        ...state,
+        teams: state.teams,
+        currentTeam: updatedTeam,
+        currentCard: Array.from(state.currentDeck)[0],
+        currentDeck: state.currentDeck,
+        correctCards: state.correctCards,
+        failedCards: state.failedCards,
+        // round: 2,
       };
     }
     case "END_ROUND":
       return {
         ...state,
         teams: state.teams,
-        currentTeam: state.teams[1].name,
-        currentCard: state.currentDeck[0],
+        currentTeam: state.currentTeam,
+        currentCard: Array.from(state.currentDeck)[0],
         currentDeck: state.currentDeck,
         correctCards: state.correctCards,
         failedCards: state.failedCards,
-        round: 2,
+        // round: 2,
       };
 
     case "TOGGLE_CARD": {
       const card = action.payload;
-      let newCorrectCards = [...state.correctCards];
-      let newFailedCards = [...state.failedCards];
+      const newCorrectCards = new Set(state.correctCards);
+      const newFailedCards = new Set(state.failedCards);
+      const newCurrentDeck = new Set(state.currentDeck);
       let newTeams = [...state.teams];
 
-      if (state.correctCards.includes(card)) {
+      if (newCorrectCards.has(card)) {
         // Mover de correctCards a failedCards y restar puntos
-        newCorrectCards = state.correctCards.filter((c) => c !== card);
-        newFailedCards = [...state.failedCards, card];
+        newCorrectCards.delete(card);
+        newFailedCards.add(card);
         newTeams = state.teams.map((team) =>
           team.name === state.currentTeam
             ? { ...team, points: team.points - 1 }
             : team,
         );
         saveTeams(newTeams);
-      } else if (state.failedCards.includes(card)) {
+        newCurrentDeck.add(card);
+      } else if (newFailedCards.has(card)) {
         // Mover de failedCards a correctCards y sumar puntos
-        newFailedCards = state.failedCards.filter((c) => c !== card);
-        newCorrectCards = [...state.correctCards, card];
+        newFailedCards.delete(card);
+        newCorrectCards.add(card);
         newTeams = state.teams.map((team) =>
           team.name === state.currentTeam
             ? { ...team, points: team.points + 1 }
             : team,
         );
         saveTeams(newTeams);
+        newCurrentDeck.delete(card);
       }
 
       return {
@@ -142,6 +171,7 @@ export const timesUpReducer = (
         correctCards: newCorrectCards,
         failedCards: newFailedCards,
         teams: newTeams,
+        currentDeck: newCurrentDeck,
       };
     }
     case "RESET_GAME":

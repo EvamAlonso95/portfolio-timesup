@@ -1,6 +1,6 @@
 import type { GameStatus } from "../data/game.data";
 import type { TimesUpAction, TimesUpState } from "../reducer/timesUpReducer";
-import { getTeams, removeTeams } from "../utils/storage";
+import { removeTeams } from "../utils/storage";
 
 
 
@@ -20,7 +20,7 @@ export const HeaderComponet = ({
 
 }) => {
     const handleRestartGame = () => {
-        dispatch({ type: "RESET_GAME", payload: state.currentDeck })
+        dispatch({ type: "RESET_GAME", payload: Array.from(state.currentDeck) })
         setGameStatus("SELECTION");
         selectedCategories = []
         setSelectedCategories(selectedCategories)

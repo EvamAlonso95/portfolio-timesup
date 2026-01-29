@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { TeamNames } from "../data/teamNames.data";
+// import { TeamNames } from "../data/teamNames.data";
 import { GameStatus } from "../data/game.data";
 
 const initialSeconds = 30;
@@ -11,7 +11,7 @@ export const useTimer = ({
   gameStatus: GameStatus;
   onTimeout?: () => void;
 }) => {
-  const [team, setTeam] = useState<TeamNames>(TeamNames.EQUIPO_1);
+  // const [team, setTeam] = useState<TeamNames>(TeamNames.EQUIPO_1);
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
 
   useEffect(() => {
@@ -27,12 +27,12 @@ export const useTimer = ({
         setTimeLeft((prev) => {
           if (prev <= 1) {
             if (onTimeout) onTimeout();
-            // Cambio de equipo
-            setTeam((prevTeam) =>
-              prevTeam === TeamNames.EQUIPO_1
-                ? TeamNames.EQUIPO_2
-                : TeamNames.EQUIPO_1,
-            );
+            // // Cambio de equipo
+            // setTeam((prevTeam) =>
+            //   prevTeam === TeamNames.EQUIPO_1
+            //     ? TeamNames.EQUIPO_2
+            //     : TeamNames.EQUIPO_1,
+            // );
             return initialSeconds; // Reinicia el timer
           }
           return prev - 1;
@@ -51,7 +51,7 @@ export const useTimer = ({
 
   return {
     timeLeft,
-    team,
+    // team,
     resetTimer,
   };
 };

@@ -1,15 +1,25 @@
+import type { GameStatus } from "../data/game.data";
 import type { TimesUpAction } from "../reducer/timesUpReducer";
 
 export interface RoundSummaryProps {
-    correctCards: string[];
-    failedCards: string[];
-    dispatch: React.Dispatch<TimesUpAction>
+    correctCards: Set<string>;
+    failedCards: Set<string>;
+    dispatch: React.Dispatch<TimesUpAction>;
+    setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
 }
 
 
-export const RoundSummaryComponent = ({ correctCards, failedCards, dispatch }: RoundSummaryProps) => {
+export const RoundSummaryComponent = ({ correctCards, failedCards, dispatch, setGameStatus }: RoundSummaryProps) => {
     const handleToggleCard = (card: string) => {
         dispatch({ type: "TOGGLE_CARD", payload: card })
+    }
+
+    const nextTeamTurn = () => {
+
+        console.log('Continuar');
+        dispatch({ type: "NEXT_ROUND" })
+        setGameStatus("ROUND_1")
+
     }
     return (
         <>
@@ -19,9 +29,9 @@ export const RoundSummaryComponent = ({ correctCards, failedCards, dispatch }: R
                 <div className="summary-section">
                     <h3 className="section-title">✅ CARTAS ACERTADAS</h3>
                     <div className="cards-list">
-                        {correctCards.map((correctCard, idx) => (
-                            <div className="card-item correct">
-                                <p key={idx}>{correctCard}</p>
+                        {Array.from(correctCards).map((correctCard) => (
+                            <div className="card-item correct" key={correctCard}>
+                                <p>{correctCard}</p>
                                 <button className="btn cancelar" onClick={() => handleToggleCard(correctCard)}>X</button>
 
                             </div>
@@ -32,9 +42,9 @@ export const RoundSummaryComponent = ({ correctCards, failedCards, dispatch }: R
                 <div className="summary-section">
                     <h3 className="section-title">❌ CARTAS FALLADAS</h3>
                     <div className="cards-list">
-                        {failedCards.map((failedCard, idx) => (
-                            <div className="card-item failed">
-                                <p key={idx}>{failedCard}</p>
+                        {Array.from(failedCards).map((failedCard) => (
+                            <div className="card-item failed" key={failedCard}>
+                                <p>{failedCard}</p>
                                 <button className="btn cancelar" onClick={() => handleToggleCard(failedCard)}>X</button>
 
                             </div>
@@ -43,7 +53,7 @@ export const RoundSummaryComponent = ({ correctCards, failedCards, dispatch }: R
                     </div>
                 </div>
             </div>
-            <button className="btn"  > Continue </button>
+            <button className="btn" onClick={nextTeamTurn}> Continue </button>
         </>
     );
 };
