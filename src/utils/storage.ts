@@ -7,3 +7,7 @@ export const getTeams = (): { name: string; points: number }[] => {
   const teams = sessionStorage.getItem("teams");
   return teams ? JSON.parse(teams) : [];
 };
+
+export const removeTeams = () => {
+  sessionStorage.removeItem("teams");
+};

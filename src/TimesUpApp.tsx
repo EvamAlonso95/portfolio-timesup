@@ -30,7 +30,12 @@ export const TimesUpApp = () => {
     return (
         <>
 
-            <HeaderComponet />
+            <HeaderComponet
+                setGameStatus={setGameStatus}
+                state={state}
+                dispatch={dispatch}
+                setSelectedCategories={setSelectedCategories}
+                selectedCategories={selectedCategories} />
 
             <main className="layout__main">
                 {gameStatus == GameStatus.SELECTION && (
