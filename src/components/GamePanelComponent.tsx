@@ -5,6 +5,9 @@ import { StatusBarComponent } from './StatusBarComponent/StatusBarComponent'
 import { RoundSummaryComponent } from './RoundSummaryComponent'
 import type { TimesUpAction, TimesUpState } from '../reducer/timesUpReducer'
 
+import { useGameStatusManager } from '../hooks/useGameStatusManager'
+// import { useEffect } from 'react'
+
 
 export const GamePanelComponent = ({
     gameCards,
@@ -25,6 +28,10 @@ export const GamePanelComponent = ({
         dispatch({ type: "END_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
     };
+
+    useGameStatusManager(state, gameStatus, setGameStatus)
+
+
 
 
 
