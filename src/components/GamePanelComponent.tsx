@@ -23,6 +23,7 @@ export const GamePanelComponent = ({
     gameStatus: GameStatus;
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>
     currentCard: string;
+
 }) => {
     const handleTimeout = () => {
         dispatch({ type: "RESUME_ROUND" });
@@ -52,7 +53,7 @@ export const GamePanelComponent = ({
                 </>
             )}
             {gameStatus === GameStatus.END_ROUND && (
-                <RoundSummaryComponent actualDeckSize={actualDeckSize} correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} />
+                <RoundSummaryComponent actualDeckSize={actualDeckSize} correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} gameStatus={gameStatus} />
             )}
 
 

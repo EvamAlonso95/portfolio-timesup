@@ -1,4 +1,5 @@
-import type { GameStatus } from "../data/game.data";
+import { useState } from "react";
+import { GameStatus } from "../data/game.data";
 import type { TimesUpAction } from "../reducer/timesUpReducer";
 import { ScoreComponent } from "./ScoreComponent";
 
@@ -8,15 +9,24 @@ export interface RoundSummaryProps {
     failedCards: Set<string>;
     dispatch: React.Dispatch<TimesUpAction>;
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
-
+    gameStatus: GameStatus
 
 }
+// let isScoreComponentVisible = false;
+export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCards, dispatch, setGameStatus, gameStatus }: RoundSummaryProps) => {
 
-export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCards, dispatch, setGameStatus }: RoundSummaryProps) => {
+
+    const [changingRound, setChangingRound] = useState(false)
 
     const handleToggleCard = (card: string) => {
         dispatch({ type: "TOGGLE_CARD", payload: card })
     }
+
+    const hanldeChangingRound = () => {
+        setChangingRound(true)
+    }
+
+
 
     console.log('Mazo acutal', actualDeckSize);
     const nextTeamTurn = () => {
@@ -35,7 +45,7 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
     }
     return (
         <>
-            {actualDeckSize !== 0 && (
+            {gameStatus === GameStatus.END_ROUND && !changingRound && (
                 <>
                     <div className="summary-container">
                         <h2 className="summary-header">RESUMEN DE LA RONDA</h2>
@@ -66,14 +76,25 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
                             </div>
                         </div>
                     </div>
-                    <button className="btn" onClick={nextTeamTurn}> Continue </button>
+                    {
+                        actualDeckSize === 0 && (
+                            <button className="btn" onClick={hanldeChangingRound} > Cambio ronda</button>
+
+                        )
+                    }
+                    {
+                        actualDeckSize !== 0 && (
+                            <button className="btn" onClick={nextTeamTurn}> Continue </button>
+
+                        )
+                    }
                 </>
 
             )}
-
+            {console.log('que da', actualDeckSize === 0, gameStatus === GameStatus.END_ROUND, changingRound)}
             {
-                actualDeckSize === 0 && (
-                    <ScoreComponent />
+                changingRound && (
+                    <ScoreComponent dispatch={dispatch} setGameStatus={setGameStatus} />
 
                 )
             }

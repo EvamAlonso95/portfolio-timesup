@@ -44,7 +44,7 @@ export const TimesUpApp = () => {
                         <RulesComponent lenght={gameCards.length} />
                     </>
                 )}
-                {gameStatus == GameStatus.ROUND_1 && (
+                {(gameStatus === GameStatus.ROUND_1 || gameStatus === GameStatus.ROUND_2 || gameStatus === GameStatus.ROUND_3) && (
                     <GamePanelComponent
                         gameCards={gameCards}
                         currentCard={state.currentCard}
