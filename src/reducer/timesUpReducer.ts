@@ -42,8 +42,9 @@ export type TimesUpAction =
   | { type: "CORRECT_GUESS"; payload: string[] }
   | { type: "INCORRECT_GUESS"; payload: string[] }
   | { type: "TOGGLE_CARD"; payload: string }
+  | { type: "RESUME_ROUND" }
   | { type: "NEXT_ROUND" }
-  | { type: "END_ROUND" }
+  | { type: "END_ROUND"; payload: string[] }
   | { type: "RESET_GAME"; payload: string[] };
 
 export const timesUpReducer = (
@@ -60,7 +61,7 @@ export const timesUpReducer = (
       //Comprobación de  nº cartas
       if (state.currentDeck.size === 0) {
         console.log("Se acabó el mazo");
-        //Cambiar de ronda
+        return state;
       }
 
       const correctCards = new Set(state.correctCards);
@@ -103,6 +104,7 @@ export const timesUpReducer = (
         failedCards: failedCards,
       };
     }
+    // ALterno equipos en la FASE
     case "NEXT_ROUND": {
       const getUpdatedTeam = (currentTeam: string): TeamNames => {
         return currentTeam === TeamNames.EQUIPO_1
@@ -112,6 +114,28 @@ export const timesUpReducer = (
 
       // Uso:
       const updatedTeam = getUpdatedTeam(state.currentTeam);
+
+      return {
+        ...state,
+        teams: state.teams,
+        currentTeam: updatedTeam,
+        currentCard: Array.from(state.currentDeck)[0],
+        currentDeck: state.currentDeck,
+        correctCards: new Set<string>(),
+        failedCards: new Set<string>(),
+        // round: 2,
+      };
+    }
+    case "RESUME_ROUND": {
+      const getUpdatedTeam = (currentTeam: string): TeamNames => {
+        return currentTeam === TeamNames.EQUIPO_1
+          ? TeamNames.EQUIPO_2
+          : TeamNames.EQUIPO_1;
+      };
+
+      // Uso:
+      const updatedTeam = getUpdatedTeam(state.currentTeam);
+
       return {
         ...state,
         teams: state.teams,
@@ -123,17 +147,15 @@ export const timesUpReducer = (
         // round: 2,
       };
     }
-    case "END_ROUND":
+
+    // Termino la ronda (1,2,3)
+    case "END_ROUND": {
       return {
         ...state,
-        teams: state.teams,
-        currentTeam: state.currentTeam,
-        currentCard: Array.from(state.currentDeck)[0],
-        currentDeck: state.currentDeck,
-        correctCards: state.correctCards,
-        failedCards: state.failedCards,
-        // round: 2,
+        currentCard: "",
+        // Dejar currentDeck vacío para detectar cuando se acaban las cartas
       };
+    }
 
     case "TOGGLE_CARD": {
       const card = action.payload;

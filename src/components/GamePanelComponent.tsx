@@ -25,22 +25,26 @@ export const GamePanelComponent = ({
     currentCard: string;
 }) => {
     const handleTimeout = () => {
-        dispatch({ type: "END_ROUND" });
+        dispatch({ type: "RESUME_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
     };
 
-    useGameStatusManager(state, gameStatus, setGameStatus)
+    useGameStatusManager(state, gameStatus, setGameStatus, gameCards, dispatch)
 
 
+
+    const actualDeckSize = state.currentDeck.size;
 
 
 
     return (
         <div className="game-panel-container">
-            <div className="game-status-bar">
-                <StatusBarComponent gameStatus={gameStatus} setGameStatus={setGameStatus} onTimeout={handleTimeout} state={state} />
-            </div>
-            {gameStatus === GameStatus.ROUND_1 && (
+            {gameStatus !== GameStatus.END_ROUND && (
+                <div className="game-status-bar">
+                    <StatusBarComponent gameStatus={gameStatus} setGameStatus={setGameStatus} onTimeout={handleTimeout} state={state} />
+                </div>
+            )}
+            {(gameStatus === GameStatus.ROUND_1 || gameStatus === GameStatus.ROUND_2 || gameStatus === GameStatus.ROUND_3) && (
                 <>
                     <CardComponent currentCard={currentCard} gameStatus={gameStatus} />
                     <ButtonsComponent dispatch={dispatch} gameCards={gameCards} />
@@ -48,7 +52,7 @@ export const GamePanelComponent = ({
                 </>
             )}
             {gameStatus === GameStatus.END_ROUND && (
-                <RoundSummaryComponent correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} />
+                <RoundSummaryComponent actualDeckSize={actualDeckSize} correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} />
             )}
 
 

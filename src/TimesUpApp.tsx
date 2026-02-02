@@ -19,13 +19,13 @@ export const TimesUpApp = () => {
     const prevGameStatus = useRef<GameStatus>(GameStatus.SELECTION)
     // Reinicializar el reducer cuando se inicia el juego
     useEffect(() => {
-        if (prevGameStatus.current === GameStatus.SELECTION && gameStatus === GameStatus.ROUND_1 && gameCards.length > 0) {
+        if (prevGameStatus.current === GameStatus.SELECTION && gameStatus === GameStatus.ROUND_1) {
             dispatch({ type: "RESET_GAME", payload: gameCards });
         }
         prevGameStatus.current = gameStatus
-    }, [gameStatus, gameCards.length]);
+    }, [gameStatus, gameCards]);
 
-    const totalGameCards = decks[0].deck.length;
+
 
     return (
         <>
@@ -41,7 +41,7 @@ export const TimesUpApp = () => {
                 {gameStatus == GameStatus.SELECTION && (
                     <>
                         <ChooseDeckComponent gameStatus={gameStatus} setGameStatus={setGameStatus} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
-                        <RulesComponent lenght={totalGameCards} />
+                        <RulesComponent lenght={gameCards.length} />
                     </>
                 )}
                 {gameStatus == GameStatus.ROUND_1 && (
