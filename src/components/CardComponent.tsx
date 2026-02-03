@@ -11,13 +11,15 @@ export const CardComponent = ({ currentCard, gameStatus }: { currentCard: string
 
                         <div className="card-top-section">
 
-                            <div className="card-content">{currentCard}</div>
+                            <div className="card-content">{currentCard}
+
+                            </div>
                             <div className="card-instructions">
                                 {gameStatus === GameStatus.ROUND_1 && "¡Describe con palabras!"}
-                                {gameStatus === GameStatus.ROUND_2 && "¡Solo gestos!"}
-                                {gameStatus === GameStatus.ROUND_3 && "¡Una sola palabra!"}
+                                {gameStatus === GameStatus.ROUND_2 && "¡Una sola palabra!"}
+                                {gameStatus === GameStatus.ROUND_3 && "¡Solo gestos!"}
                             </div>
-                            <div className="card-arrow"></div>
+
 
 
                         </div>

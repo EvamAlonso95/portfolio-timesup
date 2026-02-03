@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GameStatus } from "../data/game.data";
 import type { TimesUpAction } from "../reducer/timesUpReducer";
 import { ScoreComponent } from "./ScoreComponent";
+import { getPrevGameStatus } from "../utils/storage";
 
 export interface RoundSummaryProps {
     actualDeckSize: number;
@@ -15,6 +16,7 @@ export interface RoundSummaryProps {
 }
 // let isScoreComponentVisible = false;
 export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCards, dispatch, setGameStatus, gameStatus, gameCards }: RoundSummaryProps) => {
+
 
 
     const [changingRound, setChangingRound] = useState(false)
@@ -32,20 +34,15 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
 
 
     console.log('Mazo acutal', actualDeckSize);
+    const prevGameStatus = getPrevGameStatus()
     const nextTeamTurn = () => {
 
 
         if (actualDeckSize !== 0) {
             dispatch({ type: "NEXT_ROUND" })
-            setGameStatus("ROUND_1")
+            setGameStatus(prevGameStatus)
         }
 
-        // Aqui hay que validar si hay mas cartas o no
-        if (actualDeckSize === 0) {
-            console.log('Cambio de ronda')
-            setGameStatus("ROUND_2")
-
-        }
 
     }
     return (
@@ -99,7 +96,7 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
             {console.log('que da', actualDeckSize === 0, gameStatus === GameStatus.END_ROUND, changingRound)}
             {
                 changingRound && (
-                    <ScoreComponent dispatch={dispatch} setGameStatus={setGameStatus} />
+                    <ScoreComponent dispatch={dispatch} setGameStatus={setGameStatus} actualDeckSize={actualDeckSize} />
 
                 )
             }

@@ -7,6 +7,7 @@ import { GameStatus } from "./data/game.data";
 import { GamePanelComponent } from "./components/GamePanelComponent";
 import { decks } from "./data/cards.data";
 import { getInitialState, timesUpReducer } from "./reducer/timesUpReducer";
+import { GameFinalScore } from "./components/GameFinalScore";
 
 
 export const TimesUpApp = () => {
@@ -64,6 +65,14 @@ export const TimesUpApp = () => {
                         gameStatus={gameStatus}
                         setGameStatus={setGameStatus}
                     />
+                )}
+
+                {gameStatus == GameStatus.FINISHED && (
+                    <GameFinalScore setGameStatus={setGameStatus}
+                        state={state}
+                        dispatch={dispatch}
+                        setSelectedCategories={setSelectedCategories}
+                        selectedCategories={selectedCategories} />
                 )}
 
                 {/* {gameStatus == GameStatus.END_ROUND && (

@@ -11,3 +11,16 @@ export const getTeams = (): { name: string; points: number }[] => {
 export const removeTeams = () => {
   sessionStorage.removeItem("teams");
 };
+
+export const savePrevGameStatus = (prevGameStatus: string) => {
+  sessionStorage.setItem("prevGameStatus", JSON.stringify(prevGameStatus));
+};
+
+export const getPrevGameStatus = () => {
+  const prevGameStatus = sessionStorage.getItem("prevGameStatus");
+  return prevGameStatus ? JSON.parse(prevGameStatus) : "";
+};
+
+export const removePrevGameStatus = () => {
+  sessionStorage.removeItem("prevGameStatus");
+};

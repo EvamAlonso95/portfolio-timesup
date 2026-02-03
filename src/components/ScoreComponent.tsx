@@ -1,24 +1,35 @@
-import type { GameStatus } from "../data/game.data";
+import { GameStatus } from "../data/game.data";
 import { TeamNames } from "../data/teamNames.data"
 import type { TimesUpAction } from "../reducer/timesUpReducer";
-import { getTeams } from "../utils/storage"
+import { getPrevGameStatus, getTeams } from "../utils/storage"
 
 export interface ScoreComponentProps {
     dispatch: React.Dispatch<TimesUpAction>;
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
+    actualDeckSize: number;
 }
 
-export const ScoreComponent = ({ dispatch, setGameStatus }: ScoreComponentProps) => {
+export const ScoreComponent = ({ dispatch, setGameStatus, actualDeckSize }: ScoreComponentProps) => {
     const teams = getTeams()
     const team1Points = teams[0].points;
-    const team2Points = teams[1].points
+    const team2Points = teams[1].points;
 
+    const prevGameStatus = getPrevGameStatus()
+
+    console.log('DECK', actualDeckSize)
     const nextPhase = () => {
-        console.log('Pasamos a la ronda 2')
+
+
         dispatch({ type: "NEXT_ROUND" })
-        setGameStatus("ROUND_2")
+        if (prevGameStatus === GameStatus.ROUND_1) {
+            setGameStatus("ROUND_2")
+        } else if (prevGameStatus === GameStatus.ROUND_2) {
+            setGameStatus("ROUND_3")
+        } else if (prevGameStatus === GameStatus.ROUND_3) {
+            setGameStatus("FINISHED")
+            console.log('hola')
 
-
+        }
     }
 
     return (
@@ -44,7 +55,19 @@ export const ScoreComponent = ({ dispatch, setGameStatus }: ScoreComponentProps)
                 </div>
             </div>
             <button className="btn" onClick={nextPhase}> Siguiente ronda </button>
-            <p>Solo gestos</p>
+            {
+                prevGameStatus === GameStatus.ROUND_1 && (
+                    <p>Solo una palabra</p>
+
+                )
+
+            }
+            {
+                prevGameStatus === GameStatus.ROUND_2 && (
+                    <p>Solo mímica</p>
+
+                )
+            }
         </div>
     )
 }

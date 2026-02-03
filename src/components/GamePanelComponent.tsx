@@ -6,6 +6,7 @@ import { RoundSummaryComponent } from './RoundSummaryComponent'
 import type { TimesUpAction, TimesUpState } from '../reducer/timesUpReducer'
 
 import { useGameStatusManager } from '../hooks/useGameStatusManager'
+import { savePrevGameStatus } from '../utils/storage'
 // import { useEffect } from 'react'
 
 
@@ -25,7 +26,11 @@ export const GamePanelComponent = ({
     currentCard: string;
 
 }) => {
+
+
     const handleTimeout = () => {
+        console.log('El estado actual es:', gameStatus)
+        savePrevGameStatus(gameStatus);
         dispatch({ type: "RESUME_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
     };

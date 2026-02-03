@@ -1,6 +1,6 @@
 import type { GameStatus } from "../data/game.data";
 import type { TimesUpAction, TimesUpState } from "../reducer/timesUpReducer";
-import { removeTeams } from "../utils/storage";
+import { removePrevGameStatus, removeTeams } from "../utils/storage";
 
 
 
@@ -20,6 +20,7 @@ export const HeaderComponet = ({
 
 }) => {
     const handleRestartGame = () => {
+        removePrevGameStatus();
         dispatch({ type: "RESET_GAME", payload: Array.from(state.currentDeck) })
         setGameStatus("SELECTION");
         selectedCategories = []
