@@ -9,11 +9,12 @@ export interface RoundSummaryProps {
     failedCards: Set<string>;
     dispatch: React.Dispatch<TimesUpAction>;
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
-    gameStatus: GameStatus
+    gameStatus: GameStatus,
+    gameCards: string[]
 
 }
 // let isScoreComponentVisible = false;
-export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCards, dispatch, setGameStatus, gameStatus }: RoundSummaryProps) => {
+export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCards, dispatch, setGameStatus, gameStatus, gameCards }: RoundSummaryProps) => {
 
 
     const [changingRound, setChangingRound] = useState(false)
@@ -23,7 +24,9 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
     }
 
     const hanldeChangingRound = () => {
+        console.log('Cambio de ronda,', gameCards)
         setChangingRound(true)
+        dispatch({ type: "RESET_DECK", payload: gameCards })
     }
 
 
@@ -39,7 +42,9 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
 
         // Aqui hay que validar si hay mas cartas o no
         if (actualDeckSize === 0) {
+            console.log('Cambio de ronda')
             setGameStatus("ROUND_2")
+
         }
 
     }

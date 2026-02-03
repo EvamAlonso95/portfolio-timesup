@@ -44,6 +44,7 @@ export type TimesUpAction =
   | { type: "TOGGLE_CARD"; payload: string }
   | { type: "RESUME_ROUND" }
   | { type: "NEXT_ROUND" }
+  | { type: "RESET_DECK"; payload: string[] }
   | { type: "END_ROUND"; payload: string[] }
   | { type: "RESET_GAME"; payload: string[] };
 
@@ -150,10 +151,19 @@ export const timesUpReducer = (
 
     // Termino la ronda (1,2,3)
     case "END_ROUND": {
+      // const resetDeck = state.correctCards;
       return {
         ...state,
+        // currentDeck: resetDeck,
         currentCard: "",
         // Dejar currentDeck vacío para detectar cuando se acaban las cartas
+      };
+    }
+
+    case "RESET_DECK": {
+      return {
+        ...state,
+        currentDeck: new Set(action.payload),
       };
     }
 

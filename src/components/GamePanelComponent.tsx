@@ -53,7 +53,7 @@ export const GamePanelComponent = ({
                 </>
             )}
             {gameStatus === GameStatus.END_ROUND && (
-                <RoundSummaryComponent actualDeckSize={actualDeckSize} correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} gameStatus={gameStatus} />
+                <RoundSummaryComponent actualDeckSize={actualDeckSize} correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} gameStatus={gameStatus} gameCards={gameCards} />
             )}
 
 
