@@ -36,15 +36,20 @@ export const TimesUpApp = () => {
                 state={state}
                 dispatch={dispatch}
                 setSelectedCategories={setSelectedCategories}
-                selectedCategories={selectedCategories} />
+                selectedCategories={selectedCategories}
+                gamestatus={gameStatus} />
 
             <main className="layout__main">
                 {gameStatus == GameStatus.SELECTION && (
                     <>
                         <ChooseDeckComponent gameStatus={gameStatus} setGameStatus={setGameStatus} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
-                        <RulesComponent lenght={gameCards.length} />
+
                     </>
                 )}
+                {gameStatus === GameStatus.RULES && (
+                    <RulesComponent />
+                )}
+
                 {(gameStatus === GameStatus.ROUND_1 || gameStatus === GameStatus.ROUND_2 || gameStatus === GameStatus.ROUND_3) && (
                     <GamePanelComponent
                         gameCards={gameCards}
