@@ -54,14 +54,14 @@ export const HeaderComponet = ({
                         {gamestatus === GameStatus.RULES && (
                             <button className="btn restart" onClick={handleRestartGame} > <img src={back} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> Back to the game </button>
                         )}
-                        {
+                        {/* {
                             gamestatus !== GameStatus.SELECTION && gamestatus !== GameStatus.RULES && (
 
                                 <button className="btn restart" onClick={handleRestartGame} > End Game </button>
 
                             )
 
-                        }
+                        } */}
 
                         {gamestatus === GameStatus.SELECTION && (
                             <button className="btn restart" onClick={showGameRules} ><img src={info} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> How to play </button>

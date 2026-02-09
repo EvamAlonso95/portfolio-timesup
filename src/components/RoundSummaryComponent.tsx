@@ -29,9 +29,23 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
 
     const hanldeChangingRound = () => {
         console.log('Cambio de ronda,', gameCards)
-        setChangingRound(true)
-        dispatch({ type: "RESET_DECK", payload: gameCards })
+
+        const prevGameStatus = getPrevGameStatus();
+
+        // Si estamos terminando ROUND_3, ir directamente a FINISHED
+        if (prevGameStatus === GameStatus.ROUND_3) {
+            dispatch({ type: "RESET_DECK", payload: gameCards });
+            dispatch({ type: "NEXT_ROUND" });
+            setGameStatus(GameStatus.FINISHED);
+            return;
+        }
+
+        // Para rondas intermedias, mostrar ScoreComponent
+        setChangingRound(true);
+        dispatch({ type: "RESET_DECK", payload: gameCards });
     }
+
+
 
 
 
@@ -81,7 +95,7 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
                         </div>
                         {
                             actualDeckSize === 0 && (
-                                <button className="btn" onClick={hanldeChangingRound} > Cambio ronda</button>
+                                <button className="btn" onClick={hanldeChangingRound} > Continuar</button>
 
                             )
                         }

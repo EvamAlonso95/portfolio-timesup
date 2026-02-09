@@ -14,25 +14,23 @@ export const ScoreComponent = ({ dispatch, setGameStatus, actualDeckSize }: Scor
     const team1Points = teams[0].points;
     const team2Points = teams[1].points;
 
+
+
     const prevGameStatus = getPrevGameStatus()
 
     console.log('DECK', actualDeckSize)
     const nextPhase = () => {
-
-
         dispatch({ type: "NEXT_ROUND" })
         if (prevGameStatus === GameStatus.ROUND_1) {
             setGameStatus("ROUND_2")
         } else if (prevGameStatus === GameStatus.ROUND_2) {
             setGameStatus("ROUND_3")
-        } else if (prevGameStatus === GameStatus.ROUND_3) {
-            setGameStatus("FINISHED")
-            console.log('hola')
-
         }
+        // La transición después de ROUND_3 ahora se maneja directamente en RoundSummaryComponent
     }
 
     return (
+
         <div className="score-container">
             <div className="score__header">
                 <h1 className="score__title">Resumen de la ronda</h1>

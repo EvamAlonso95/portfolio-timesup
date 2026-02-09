@@ -34,6 +34,10 @@ export const GameFinalScore = ({
     const isTie = team1Points === team2Points;
 
 
+    const tieMessage = '¡Empate! Ahora echad otra para desempatar'
+
+
+
     const handleRestartGame = () => {
         removePrevGameStatus();
         dispatch({ type: "RESET_GAME", payload: Array.from(state.currentDeck) })
@@ -52,7 +56,7 @@ export const GameFinalScore = ({
         <div className="score-container">
             <div className="score__header">
                 <h1 className="score__title">Puntuaciones finales</h1>
-                <p className="score__subtitle">¡Buen trabajo a ambos equipos!</p>
+                <p className="score__subtitle">{isTie ? tieMessage : '¡Buen trabajo a ambos equipos!'}</p>
             </div>
 
             <div className="teams-container">
