@@ -367,4 +367,14 @@ export const decks: Deck[] = [
     name: "Test",
     deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
   },
+
+  {
+    name: "Test2",
+    deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
+  },
+
+  {
+    name: "Test3",
+    deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
+  },
 ];
