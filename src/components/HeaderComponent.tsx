@@ -42,8 +42,6 @@ export const HeaderComponet = ({
 
                     <div className="layout__title" onClick={handleRestartGame}>
 
-
-                        {/* Inline SVG to allow changing fill/color */}
                         <svg className="layout__icon" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
                             <g fill="currentColor">
                                 <path d="M15.07 1H8.93a1 1 0 0 0 0 2h6.14a1 1 0 1 0 0-2zM12 4a8 8 0 1 0 8 8 8.01 8.01 0 0 0-8-8zm0 2a6 6 0 1 1-6 6 6.01 6.01 0 0 1 6-6zm.5 3h-1v4l3 1.5.5-.866-2.5-1.25V9z" />

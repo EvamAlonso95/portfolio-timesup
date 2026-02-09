@@ -3,6 +3,8 @@ import { GameStatus } from "../data/game.data";
 import type { TimesUpAction } from "../reducer/timesUpReducer";
 import { ScoreComponent } from "./ScoreComponent";
 import { getPrevGameStatus } from "../utils/storage";
+import correct from "../assets/green-check-mark.png"
+import wrong from "../assets/red-error.png"
 
 export interface RoundSummaryProps {
     actualDeckSize: number;
@@ -52,12 +54,12 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
                     <div className="summary-container">
                         <h2 className="summary-header">RESUMEN DE LA RONDA</h2>
                         <div className="summary-section">
-                            <h3 className="section-title">✅ CARTAS ACERTADAS</h3>
+                            <h3 className="section-title green"><img src={correct} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> CARTAS ACERTADAS</h3>
                             <div className="cards-list">
                                 {Array.from(correctCards).map((correctCard) => (
                                     <div className="card-item correct" key={correctCard}>
                                         <p>{correctCard}</p>
-                                        <button className="btn cancelar" onClick={() => handleToggleCard(correctCard)}>X</button>
+                                        <button className="btn cancel-correct" onClick={() => handleToggleCard(correctCard)}>X</button>
 
                                     </div>
                                 ))}
@@ -65,31 +67,32 @@ export const RoundSummaryComponent = ({ actualDeckSize, correctCards, failedCard
                             </div>
                         </div>
                         <div className="summary-section">
-                            <h3 className="section-title">❌ CARTAS FALLADAS</h3>
+                            <h3 className="section-title red"><img src={wrong} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> CARTAS FALLADAS</h3>
                             <div className="cards-list">
                                 {Array.from(failedCards).map((failedCard) => (
                                     <div className="card-item failed" key={failedCard}>
                                         <p>{failedCard}</p>
-                                        <button className="btn cancelar" onClick={() => handleToggleCard(failedCard)}>X</button>
+                                        <button className="btn cancel-failed" onClick={() => handleToggleCard(failedCard)}>X</button>
 
                                     </div>
                                 ))}
 
                             </div>
                         </div>
+                        {
+                            actualDeckSize === 0 && (
+                                <button className="btn" onClick={hanldeChangingRound} > Cambio ronda</button>
+
+                            )
+                        }
+                        {
+                            actualDeckSize !== 0 && (
+                                <button className="btn" onClick={nextTeamTurn}> Continue </button>
+
+                            )
+                        }
                     </div>
-                    {
-                        actualDeckSize === 0 && (
-                            <button className="btn" onClick={hanldeChangingRound} > Cambio ronda</button>
 
-                        )
-                    }
-                    {
-                        actualDeckSize !== 0 && (
-                            <button className="btn" onClick={nextTeamTurn}> Continue </button>
-
-                        )
-                    }
                 </>
 
             )}

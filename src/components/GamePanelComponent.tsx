@@ -29,8 +29,8 @@ export const GamePanelComponent = ({
 
 
     const handleTimeout = () => {
-        console.log('El estado actual es:', gameStatus)
         savePrevGameStatus(gameStatus);
+
         dispatch({ type: "RESUME_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
     };
@@ -61,8 +61,9 @@ export const GamePanelComponent = ({
                 <RoundSummaryComponent actualDeckSize={actualDeckSize} correctCards={state.correctCards} failedCards={state.failedCards} dispatch={dispatch} setGameStatus={setGameStatus} gameStatus={gameStatus} gameCards={gameCards} />
             )}
 
-
-            {
+            {/* //! Esto puede sobrar 
+             */}
+            {/* {
                 gameStatus != GameStatus.END_ROUND && (
                     <div className="phase-instructions">
                         <p className="phase-description">
@@ -73,7 +74,7 @@ export const GamePanelComponent = ({
                     </div>
 
                 )
-            }
+            } */}
 
 
         </div>

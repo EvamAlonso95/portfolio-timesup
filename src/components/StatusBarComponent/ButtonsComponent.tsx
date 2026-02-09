@@ -1,4 +1,6 @@
 import type { TimesUpAction } from "../../reducer/timesUpReducer"
+import correct from "../../assets/check-mark.png"
+import wrong from "../../assets/error.png"
 
 export const ButtonsComponent = ({
     gameCards,
@@ -19,7 +21,7 @@ export const ButtonsComponent = ({
                 })}
                 className="btn-game btn-correct"
             >
-                ✅ Correcto
+                <img src={correct} alt="" aria-hidden="true" className="rules__icon" loading="lazy" />Correcto
             </button>
             <button
                 onClick={() => dispatch({
@@ -28,7 +30,7 @@ export const ButtonsComponent = ({
                 })}
                 className="btn-game btn-incorrect"
             >
-                ❌ Incorrecto
+                <img src={wrong} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> Incorrecto
             </button>
 
         </div>

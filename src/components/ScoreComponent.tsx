@@ -34,37 +34,41 @@ export const ScoreComponent = ({ dispatch, setGameStatus, actualDeckSize }: Scor
 
     return (
         <div className="score-container">
-            <h1 className="score-header">PUNTUACIONES</h1>
+            <div className="score__header">
+                <h1 className="score__title">Resumen de la ronda</h1>
+            </div>
 
             <div className="teams-container">
-
                 <div className="team-card">
+                    <div className="team-name team1">{TeamNames.EQUIPO_1}</div>
                     <div className="team-pattern"></div>
-                    <div className="team-name">{TeamNames.EQUIPO_1}</div>
-                    <div className="team-points">{team1Points}</div>
+                    <div className="team-points points__team1">{team1Points}</div>
                 </div>
 
 
                 <div className="vs-divider">VS</div>
 
 
-                <div className="team-card team-winner">
+                <div className="team-card">
+                    <div className="team-name team2">{TeamNames.EQUIPO_2}</div>
                     <div className="team-pattern"></div>
-                    <div className="team-name">{TeamNames.EQUIPO_2}</div>
-                    <div className="team-points">{team2Points}</div>
+                    <div className="team-points points__team2">{team2Points}</div>
                 </div>
             </div>
-            <button className="btn" onClick={nextPhase}> Siguiente ronda </button>
+            <button className="btn nextPhase" onClick={nextPhase}> Siguiente ronda </button>
+
             {
                 prevGameStatus === GameStatus.ROUND_1 && (
-                    <p>Solo una palabra</p>
+
+                    <p className="text">Próxima fase: <span className="text__focus">Solo una palabra</span></p>
+
 
                 )
 
             }
             {
                 prevGameStatus === GameStatus.ROUND_2 && (
-                    <p>Solo mímica</p>
+                    <p className="text">Próxima fase: <span className="text__focus">Solo mímica</span></p>
 
                 )
             }

@@ -363,4 +363,8 @@ export const decks: Deck[] = [
       "Cebolla",
     ],
   },
+  {
+    name: "Test",
+    deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
+  },
 ];

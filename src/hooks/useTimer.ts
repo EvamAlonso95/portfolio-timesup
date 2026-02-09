@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 // import { TeamNames } from "../data/teamNames.data";
 import { GameStatus } from "../data/game.data";
 
-const initialSeconds = 5;
+const initialSeconds = 3;
 
 export const useTimer = ({
   gameStatus,

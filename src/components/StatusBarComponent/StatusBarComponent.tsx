@@ -23,6 +23,7 @@ export const StatusBarComponent = ({
     return (
         <div className="status-bar-content">
             <PhaseDisplayComponent gameStatus={gameStatus} currentTeam={state.currentTeam} />
+
             <TimerComponent seconds={timeLeft} />
 
         </div>
