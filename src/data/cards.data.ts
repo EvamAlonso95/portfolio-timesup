@@ -1,11 +1,13 @@
 export interface Deck {
   name: string;
   deck: string[];
+  emoji: string;
 }
 
 export const decks: Deck[] = [
   {
     name: "Cultura Pop",
+    emoji: "🎬",
     deck: [
       "Leonardo da Vinci",
       "Harry Potter",
@@ -28,7 +30,6 @@ export const decks: Deck[] = [
       "TikTok",
       "WhatsApp",
       "Amazon",
-      "Netflix",
       "HBO",
       "Marvel",
       "DC Comics",
@@ -51,6 +52,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Películas",
+    emoji: "🎞️",
     deck: [
       "Titanic",
       "Avatar",
@@ -96,6 +98,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Animes",
+    emoji: "🍥",
     deck: [
       "Naruto",
       "Dragon Ball Z",
@@ -115,7 +118,6 @@ export const decks: Deck[] = [
       "One Punch Man",
       "Hunter x Hunter",
       "Tokyo Ghoul",
-      "Attack on Titan",
       "Akira",
       "Ghost in the Shell",
       "Spirited Away",
@@ -123,16 +125,13 @@ export const decks: Deck[] = [
       "Howl's Moving Castle",
       "Your Name",
       "Weathering With You",
-      "Demon Slayer",
       "Jujutsu Kaisen",
       "Haikyuu!!",
-      "Attack on School",
       "My Neighbor Totoro",
       "Rurouni Kenshin",
       "Inuyasha",
       "Fruits Basket",
       "Card Captor Sakura",
-      "Evangelion",
       "Steins;Gate",
       "Re:Zero",
       "Overlord",
@@ -141,6 +140,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Series",
+    emoji: "📺",
     deck: [
       "Friends",
       "Breaking Bad",
@@ -156,7 +156,6 @@ export const decks: Deck[] = [
       "Money Heist",
       "Dark",
       "The Witcher",
-      "Stranger Things",
       "Arrow",
       "The Flash",
       "Supernatural",
@@ -185,6 +184,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Infantil",
+    emoji: "🧸",
     deck: [
       "Cenicienta",
       "Blancanieves",
@@ -230,6 +230,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Países",
+    emoji: "🌍",
     deck: [
       "Francia",
       "Japón",
@@ -275,6 +276,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Animales",
+    emoji: "🐾",
     deck: [
       "Elefante",
       "Tigre",
@@ -320,6 +322,7 @@ export const decks: Deck[] = [
   },
   {
     name: "Comida",
+    emoji: "🍕",
     deck: [
       "Pizza",
       "Sushi",
@@ -345,7 +348,6 @@ export const decks: Deck[] = [
       "Sopa",
       "Arroz con pollo",
       "Ceviche",
-      "Ceviche",
       "Pollo frito",
       "Papas fritas",
       "Cereal",
@@ -362,19 +364,5 @@ export const decks: Deck[] = [
       "Ajo",
       "Cebolla",
     ],
-  },
-  {
-    name: "Test",
-    deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
-  },
-
-  {
-    name: "Test2",
-    deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
-  },
-
-  {
-    name: "Test3",
-    deck: ["Correcto", "Incorrecto", "Bien", "Mal"],
   },
 ];

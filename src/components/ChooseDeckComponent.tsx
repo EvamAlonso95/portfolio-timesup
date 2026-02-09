@@ -70,6 +70,7 @@ export const ChooseDeckComponent = ({ setGameStatus, selectedCategories, setSele
                                     className={`categories__card ${selectedCategories.includes(deck.name) ? "is-selected" : ""
                                         }`}
                                 >
+                                    <span>{deck.emoji}</span>
                                     <span>{deck.name}</span>
 
                                 </button>
