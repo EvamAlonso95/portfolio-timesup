@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { GameStatus } from '../data/game.data'
 import { CardComponent } from './CardComponent'
 import { ButtonsComponent } from './StatusBarComponent/ButtonsComponent'
@@ -29,12 +30,10 @@ export const GamePanelComponent = ({
 
     console.log('Baraja con nº cartas:', gameCards.length);
 
-    const handleTimeout = () => {
+    const handleTimeout = useCallback(() => {
         savePrevGameStatus(gameStatus);
-
-        // dispatch({ type: "RESUME_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
-    };
+    }, [gameStatus, setGameStatus]);
 
     useGameStatusManager(state, gameStatus, setGameStatus, gameCards, dispatch)
 
