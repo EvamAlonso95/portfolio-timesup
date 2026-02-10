@@ -27,6 +27,7 @@ export const GamePanelComponent = ({
 
 }) => {
 
+    console.log('Baraja con nº cartas:', gameCards.length);
 
     const handleTimeout = () => {
         savePrevGameStatus(gameStatus);

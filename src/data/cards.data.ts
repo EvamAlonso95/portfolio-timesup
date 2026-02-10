@@ -48,6 +48,7 @@ export const decks: Deck[] = [
       "Hulk",
       "Black Widow",
       "Hawkeye",
+      "Rubius",
     ],
   },
   {
@@ -100,6 +101,10 @@ export const decks: Deck[] = [
     name: "Animes",
     emoji: "🍥",
     deck: [
+      "Black Clover",
+      "Chainsaw Man",
+      "Mob Psycho 100",
+      "Vinland Saga",
       "Naruto",
       "Dragon Ball Z",
       "One Piece",
@@ -142,6 +147,8 @@ export const decks: Deck[] = [
     name: "Series",
     emoji: "📺",
     deck: [
+      "Peaky Blinders",
+      "Succession",
       "Friends",
       "Breaking Bad",
       "Game of Thrones",
@@ -363,6 +370,7 @@ export const decks: Deck[] = [
       "Pimienta",
       "Ajo",
       "Cebolla",
+      "Ázucar",
     ],
   },
 ];
