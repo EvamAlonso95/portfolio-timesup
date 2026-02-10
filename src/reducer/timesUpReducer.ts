@@ -67,7 +67,7 @@ export const timesUpReducer = (
 
       const correctCards = new Set(state.correctCards);
       correctCards.add(state.currentCard);
-      
+
       // Asegurar que la carta no esté en falladas
       const failedCards = new Set(state.failedCards);
       failedCards.delete(state.currentCard);
@@ -98,11 +98,11 @@ export const timesUpReducer = (
 
       const failedCards = new Set(state.failedCards);
       failedCards.add(state.currentCard);
-      
+
       // Asegurar que la carta no esté en correctas
       const correctCards = new Set(state.correctCards);
       correctCards.delete(state.currentCard);
-      
+
       const updateDeck = [...state.currentDeck];
       const first = updateDeck.shift();
       if (first !== undefined) {
@@ -162,12 +162,10 @@ export const timesUpReducer = (
 
     // Termino la ronda (1,2,3)
     case "END_ROUND": {
-      // const resetDeck = state.correctCards;
       return {
         ...state,
         // currentDeck: resetDeck,
         currentCard: "",
-        // Dejar currentDeck vacío para detectar cuando se acaban las cartas
       };
     }
 

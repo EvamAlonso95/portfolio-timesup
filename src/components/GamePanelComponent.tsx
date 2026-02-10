@@ -31,7 +31,7 @@ export const GamePanelComponent = ({
     const handleTimeout = () => {
         savePrevGameStatus(gameStatus);
 
-        dispatch({ type: "RESUME_ROUND" });
+        // dispatch({ type: "RESUME_ROUND" });
         setGameStatus(GameStatus.END_ROUND);
     };
 
