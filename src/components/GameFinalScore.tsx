@@ -4,29 +4,28 @@ import type { GameStatus } from '../data/game.data';
 import { TeamNames } from '../data/teamNames.data'
 import type { TimesUpAction, TimesUpState } from '../reducer/timesUpReducer';
 import { getTeams, removePrevGameStatus, removeTeams } from '../utils/storage';
+import { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
 import back from "../assets/black-return.png"
-// import confetti from 'canvas-confetti';
 
 export const GameFinalScore = ({
     state,
     dispatch,
     setGameStatus,
-    setSelectedCategories,
-    selectedCategories
+    setSelectedDeckKeys,
 
 }: {
     state: TimesUpState;
     dispatch: React.Dispatch<TimesUpAction>;
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>
-    selectedCategories: string[];
-    setSelectedCategories: (categories: string[]) => void;
+    selectedDeckKeys: string[];
+    setSelectedDeckKeys: (keys: string[]) => void;
 
 }) => {
     const teams = getTeams()
-    const team1Points = teams[0].points;
-    const team2Points = teams[1].points
+    const team1Points = teams[0]?.points ?? 0;
+    const team2Points = teams[1]?.points ?? 0
 
 
     const isTeam1Winner = team1Points > team2Points;
@@ -42,16 +41,17 @@ export const GameFinalScore = ({
         removePrevGameStatus();
         dispatch({ type: "RESET_GAME", payload: Array.from(state.currentDeck) })
         setGameStatus("SELECTION");
-        selectedCategories = []
-        setSelectedCategories(selectedCategories)
+        setSelectedDeckKeys([])
         removeTeams();
     }
 
-    confetti({
-        particleCount: 100,
-        spread: 120,
-        origin: { y: 0.6 },
-    })
+    useEffect(() => {
+        confetti({
+            particleCount: 100,
+            spread: 120,
+            origin: { y: 0.6 },
+        });
+    }, []);
     return (
         <div className="score-container">
             <div className="score__header">

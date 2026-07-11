@@ -8,16 +8,15 @@ export const HeaderComponet = ({
     state,
     dispatch,
     setGameStatus,
-    setSelectedCategories,
-    selectedCategories,
+    setSelectedDeckKeys,
     gamestatus
 
 }: {
     state: TimesUpState;
     dispatch: React.Dispatch<TimesUpAction>;
     setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>
-    selectedCategories: string[];
-    setSelectedCategories: (categories: string[]) => void;
+    selectedDeckKeys: string[];
+    setSelectedDeckKeys: (keys: string[]) => void;
     gamestatus: GameStatus;
 
 }) => {
@@ -25,8 +24,7 @@ export const HeaderComponet = ({
         removePrevGameStatus();
         dispatch({ type: "RESET_GAME", payload: Array.from(state.currentDeck) })
         setGameStatus("SELECTION");
-        selectedCategories = []
-        setSelectedCategories(selectedCategories)
+        setSelectedDeckKeys([])
         removeTeams();
     }
 
@@ -54,15 +52,6 @@ export const HeaderComponet = ({
                         {gamestatus === GameStatus.RULES && (
                             <button className="btn restart" onClick={handleRestartGame} > <img src={back} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> Back to the game </button>
                         )}
-                        {/* {
-                            gamestatus !== GameStatus.SELECTION && gamestatus !== GameStatus.RULES && (
-
-                                <button className="btn restart" onClick={handleRestartGame} > End Game </button>
-
-                            )
-
-                        } */}
-
                         {gamestatus === GameStatus.SELECTION && (
                             <button className="btn restart" onClick={showGameRules} ><img src={info} alt="" aria-hidden="true" className="rules__icon" loading="lazy" /> How to play </button>
                         )}
